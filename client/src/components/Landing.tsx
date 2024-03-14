@@ -23,10 +23,10 @@ function Landing() {
                             <button onClick={() => signIn('google')} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FcGoogle className=' ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Google</span></span></button>
                         </div>
                         <div className="h-9 w-4/6">
-                            <button className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaFacebook className=' text-[#0866FF] ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Facebook</span></span></button>
+                            <button onClick={() => signIn('facebook')} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaFacebook className=' text-[#0866FF] ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Facebook</span></span></button>
                         </div>
                         <div className="h-9 w-4/6">
-                            <button className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaGithub className=' ml-6 text-2xl inline text-black' /><span className=""><span className="mx-2">Continuer avec GitHub</span></span></button>
+                            <button onClick={() => signIn('github')} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaGithub className=' ml-6 text-2xl inline text-black' /><span className=""><span className="mx-2">Continuer avec GitHub</span></span></button>
                         </div>
                     </div>
                     <div className="w-full flex justify-center">
