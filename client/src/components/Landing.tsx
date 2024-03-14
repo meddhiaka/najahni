@@ -1,7 +1,11 @@
+'use client'
 import Image from "next/image"
 import { FcGoogle } from "react-icons/fc"
 import { FaFacebook } from "react-icons/fa"
 import { FaGithub } from "react-icons/fa"
+import { signIn } from "next-auth/react"
+
+
 
 function Landing() {
     return (
@@ -16,7 +20,7 @@ function Landing() {
                     <p className="text-center text-lg font-semibold text-slate-800">Là où l'éducation rencontre <span className="underline" style={{ "textDecorationThickness": "4px" }}>l'innovation!</span></p>
                     <div className="flex flex-col gap-y-3 items-center my-5">
                         <div className="h-9 w-4/6 ">
-                            <button className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FcGoogle className=' ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Google</span></span></button>
+                            <button onClick={() => signIn('google')} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FcGoogle className=' ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Google</span></span></button>
                         </div>
                         <div className="h-9 w-4/6">
                             <button className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaFacebook className=' text-[#0866FF] ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Facebook</span></span></button>
