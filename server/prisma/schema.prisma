@@ -19,7 +19,6 @@ model User {
   email         String?  @unique
   emailVerified Boolean?
   role          ROLE     @default(STUDENT)
-  googleID      String?
   password      String?
   image         String?
   createdAt     DateTime @default(now())
