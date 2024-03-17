@@ -4,6 +4,7 @@ import { FcGoogle } from "react-icons/fc"
 import { FaFacebook } from "react-icons/fa"
 import { FaGithub } from "react-icons/fa"
 import { signIn } from "next-auth/react"
+import Link from "next/link"
 
 
 
@@ -30,7 +31,7 @@ function Landing() {
                         </div>
                     </div>
                     <div className="w-full flex justify-center">
-                        <button className="rounded hover:underline px-2 py-1 transition hover:bg-purple-50 focus:bg-slate-100 focus:underline  text-base font-semibold text-purple-900">Continuer avec une adresse e-mail</button>
+                        <Link href={"/login"} className="rounded hover:underline px-2 py-1 transition hover:bg-purple-50 focus:bg-slate-100 focus:underline  text-base font-semibold text-purple-900">Continuer avec une adresse e-mail</Link>
                     </div>
                 </div>
             </div>
