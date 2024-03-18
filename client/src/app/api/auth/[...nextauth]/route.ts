@@ -3,6 +3,8 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
 import FacebookProvider from 'next-auth/providers/facebook'
+import CredentialsProvider from "next-auth/providers/credentials"
+import axios from 'axios'
 
 const google_client_id = process.env.GOOGLE_CLIENT_ID!
 const google_client_secret = process.env.GOOGLE_CLIENT_SECRET!
@@ -29,9 +31,21 @@ const authOptions: NextAuthOptions = {
         FacebookProvider({
             clientId: facebook_client_id,
             clientSecret: facebook_client_secret
-        })
+        }),
+        CredentialsProvider({
+            name: 'Credentials',
+            credentials: {
+                email: { label: 'Email', type: 'email' },
+                password: { label: 'Password', type: 'password' },
+            },
+            async authorize(credentials) {
+                if (!credentials) return null
+                const { email, password } = credentials
+                const user = await axios.post(`${process.env.SERVER_ADDRESS}/v1/api/checkuser/`, {})
+            },
+        }),
     ],
-    secret: process.env.SECRET
+    secret: process.env.SECRET,
 }
 
 const handler = NextAuth(authOptions)
