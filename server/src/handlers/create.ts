@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express"
 import validator from 'validator'
 import { prisma } from './../lib/prisma'
 import bcrypt from 'bcrypt'
-import { randomInt } from "crypto"
 
 async function hashPassword(str: string): Promise<string> {
     const salt: string = await bcrypt.genSalt(2)
