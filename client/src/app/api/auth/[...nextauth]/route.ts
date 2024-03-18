@@ -15,7 +15,7 @@ const github_client_secret = process.env.GITHUB_CLIENT_SECRET!
 const facebook_client_id = process.env.FACEBOOK_CLIENT_ID!
 const facebook_client_secret = process.env.FACEBOOK_CLIENT_SECRET!
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt"
     },
@@ -41,11 +41,18 @@ const authOptions: NextAuthOptions = {
             async authorize(credentials) {
                 if (!credentials) return null
                 const { email, password } = credentials
-                const user = await axios.post(`${process.env.SERVER_ADDRESS}/v1/api/checkuser/`, {})
+                const response = await axios.post(`${process.env.SERVER_ADDRESS}/v1/api/signin`, { email, password })
+                console.log(response)
+                if (response.status == 200) {
+                    const user = response.data
+                    return Promise.resolve(user)
+                } else {
+                    return Promise.resolve(null)
+                }
             },
         }),
     ],
-    secret: process.env.SECRET,
+    secret: process.env.SECRET
 }
 
 const handler = NextAuth(authOptions)
