@@ -16,12 +16,12 @@ async function createUser(req: Request, res: Response): Promise<any> {
 
         if (!validator.isEmail(email)) return res.status(400).json({ msg: "respect e-mail format" })
         if (!validator.isAlphanumeric(name)) return res.status(400).json({ msg: "respect name format" })
-        if (!validator.isAlphanumeric(password)) return res.status(400).json({ msg: "respect password format" })
+        // if (!validator.isAlphanumeric(password)) return res.status(400).json({ msg: "respect password format" })
 
         const hashedP = await hashPassword(req.body.password)
 
         const user = await prisma.user.create({
-            data: { ...req.body, password: hashedP }
+            data: { ...req.body, emailVerified: false, password: hashedP }
         })
         return res.status(201).json({ user })
     } catch (e) {
