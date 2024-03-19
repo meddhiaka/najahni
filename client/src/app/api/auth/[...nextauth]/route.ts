@@ -5,6 +5,7 @@ import GithubProvider from 'next-auth/providers/github'
 import FacebookProvider from 'next-auth/providers/facebook'
 import CredentialsProvider from "next-auth/providers/credentials"
 import axios from 'axios'
+import { redirect } from "next/navigation";
 
 const google_client_id = process.env.GOOGLE_CLIENT_ID!
 const google_client_secret = process.env.GOOGLE_CLIENT_SECRET!
@@ -42,7 +43,6 @@ export const authOptions: NextAuthOptions = {
                 if (!credentials) return null
                 const { email, password } = credentials
                 const response = await axios.post(`${process.env.SERVER_ADDRESS}/v1/api/signin`, { email, password })
-                console.log(response)
                 if (response.status == 200) {
                     const user = response.data
                     return Promise.resolve(user)
@@ -52,6 +52,32 @@ export const authOptions: NextAuthOptions = {
             },
         }),
     ],
+    callbacks: {
+        async signIn({ user, account, profile }) {
+
+            const name = user.name
+            const email = user.email
+
+            let exists = null
+
+            const res = axios.post('http://localhost:1337/v1/api/user', {
+                email
+            }).then(response => {
+                exists = response.status
+            })
+
+            console.log(exists)
+
+            const response = axios.post('http://localhost:1337/v1/api/oauth', {
+                name, email
+            })
+
+            if (response !== null) return true
+
+            return false;
+
+        }
+    },
     secret: process.env.SECRET
 }
 
