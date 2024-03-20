@@ -1,11 +1,12 @@
 import { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
 import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
 import FacebookProvider from 'next-auth/providers/facebook'
 import CredentialsProvider from "next-auth/providers/credentials"
 import axios from 'axios'
-import { redirect } from "next/navigation";
+import NextAuth from "next-auth/next";
+import { prisma } from "@/lib/prisma";
+
 
 const google_client_id = process.env.GOOGLE_CLIENT_ID!
 const google_client_secret = process.env.GOOGLE_CLIENT_SECRET!
@@ -55,27 +56,19 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ user, account, profile }) {
 
-            const name = user.name
-            const email = user.email
+            const nameInput = user.name
+            const emailInput = user.email
 
-            let exists = null
-
-            const res = axios.post('http://localhost:1337/v1/api/user', {
-                email
-            }).then(response => {
-                exists = response.status
+            await prisma.user.upsert({
+                where: { email: emailInput },
+                update: {},
+                create: {
+                    name: nameInput,
+                    email: emailInput,
+                    emailVerified: true
+                }
             })
-
-            console.log(exists)
-
-            const response = axios.post('http://localhost:1337/v1/api/oauth', {
-                name, email
-            })
-
-            if (response !== null) return true
-
-            return false;
-
+            return true
         }
     },
     secret: process.env.SECRET
