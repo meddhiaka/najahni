@@ -17,19 +17,16 @@ import { FcGoogle } from 'react-icons/fc'
 function Login() {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const authentication = useSession();
-    console.log(authentication)
-    
-    authentication.status === "authenticated" ? redirect('/home') : console.log('') 
+    const session = useSession()
 
-
+    session.status === "authenticated" ? redirect('/home') : console.log('')
 
     async function handleLogin(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
         const res = await signIn('credentials', {
             email,
             password,
-            redirect: false
+            callbackUrl: 'http://localhost:3000/home'
         })
         console.log(res)
     }
@@ -58,9 +55,9 @@ function Login() {
                         <span className="absolute px-3 font-medium text-white -translate-x-1/2 bg-purple-950 left-1/2 ">Ou bien</span>
                     </div>
                     <Link href={"/signup"} className='py-2 px-2 text-white rounded transition text-center w-full block md:hidden  my-2 bg-transparent border-[1px] border-white hover:bg-slate-50 hover:text-black'>S'inscrire</Link>
-                    <Button className='my-[2px]' variant="secondary"><FcGoogle className=' ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Google</span></span></Button>
-                    <Button className='my-[2px]' variant="secondary"><FaFacebook className=' text-[#0866FF] ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Facebook</span></span></Button>
-                    <Button className='my-[2px]' variant="secondary"><FaGithub className=' ml-6 text-2xl inline text-black' /><span className=""><span className="mx-2">Continuer avec GitHub</span></span></Button>
+                    <Button onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/home' })} className='my-[2px]' variant="secondary"><FcGoogle className=' ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Google</span></span></Button>
+                    <Button onClick={() => signIn('facebook', { callbackUrl: 'http://localhost:3000/home' })} className='my-[2px]' variant="secondary"><FaFacebook className=' text-[#0866FF] ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Facebook</span></span></Button>
+                    <Button onClick={() => signIn('github', { callbackUrl: 'http://localhost:3000/home' })} className='my-[2px]' variant="secondary"><FaGithub className=' ml-6 text-2xl inline text-black' /><span className=""><span className="mx-2">Continuer avec GitHub</span></span></Button>
                 </div>
             </div>
         </div>

@@ -1,8 +1,14 @@
+'use client'
 import Landing from "@/components/Landing";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 
-export default function Home() {
+export default function RealHomePage() {
+  const session = useSession()
+
+  session.status === "authenticated" ? redirect('/home') : console.log('')
+
   return (
     <main>
       <Landing />
