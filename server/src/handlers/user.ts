@@ -17,7 +17,9 @@ async function findUser(email: string): Promise<uniqueUser> {
         select: {
             id: true,
             email: true,
-            name: true
+            name: true,
+            emailVerified: true,
+            role: true
         }
     })
     return user
