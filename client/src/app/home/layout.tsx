@@ -1,14 +1,47 @@
-'use client'
+'use server'
+
 import React from "react";
 import { DropdownMenuDemo } from "@/components/DropMenuEx"
 import { TabsDemo } from "@/components/TabsEx"
-import { signOut, useSession } from "next-auth/react"
-import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { prisma } from "@/lib/prisma";
+import { sendHello } from "@/lib/email";
 
-export default function HomeLayout({ children }: { children: React.ReactNode }) {
-    const session = useSession()
 
-    session.status === "unauthenticated" ? redirect('/') : console.log('')
+async function getSessionCustom() {
+    const response = await getServerSession(authOptions)
+    return response
+}
+
+async function getProfileData(email: string) {
+    const res = await prisma.user.findUnique({
+        where: {
+            email: email
+        },
+        select: {
+            role: true,
+            id: true,
+            newAccount: true,
+            email: true
+        }
+    })
+
+    return res
+}
+export default async function HomeLayout({ children }: { children: React.ReactNode }) {
+    const session = await getSessionCustom()
+    let e, userData
+    if (session && session.user && session.user.email) { e = session?.user?.email }
+    if (e) {
+        userData = await getProfileData(e)
+    }
+    if (userData?.newAccount === true && userData.email !== null) {
+        await sendHello(userData.email)
+    }
+
+    
+
     return (
         <div>
             <div className="m-2 flex justify-between">
@@ -20,7 +53,11 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
                         <TabsDemo />
                     </div>
                 </div>
-                <DropdownMenuDemo name={session.data?.user?.name} email={session.data?.user?.email} signOut={signOut} />
+                {
+                    session && (
+                        <DropdownMenuDemo name={session.user?.name} email={session.user?.email} role={userData?.role} id={userData?.id} />
+                    )
+                }
             </div>
             {children}
         </div>
