@@ -1,3 +1,5 @@
+'use client'
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -17,13 +19,22 @@ import {
 } from "@/components/ui/tabs"
 
 export function TabsDemo() {
+    const params = usePathname()
+    const res = params.includes('/profile/')
+
     return (
-        <Tabs defaultValue="Accueil" className="w-[300px]">
-            <TabsList  className="grid w-full grid-cols-3">
-                <TabsTrigger value="Accueil">Accueil</TabsTrigger>
-                <TabsTrigger value="courses">Cours</TabsTrigger>
-                <TabsTrigger value="quiz">Quiz</TabsTrigger>
-            </TabsList>
-        </Tabs>
+        <div>
+            {
+                !res && (
+                    <Tabs defaultValue="Accueil" className="w-[300px]">
+                        <TabsList className="grid w-full grid-cols-3">
+                            <TabsTrigger value="Accueil">Accueil</TabsTrigger>
+                            <TabsTrigger value="courses">Cours</TabsTrigger>
+                            <TabsTrigger value="quiz">Quiz</TabsTrigger>
+                        </TabsList>
+                    </Tabs>
+                )
+            }
+        </div>
     )
 }
