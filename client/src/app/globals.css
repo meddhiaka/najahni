@@ -87,7 +87,7 @@
   display: grid;
   grid-template-columns: 28% 22% 22% 28%;
   grid-template-rows: 20% 30% 30% 20%;
-  height: 48rem;
+  height: auto;
 }
 
 .elt1 {
@@ -127,4 +127,15 @@
 
 .elt9 {
   grid-area: 4/3/4/3;
+}
+
+@media only screen and  (max-width: 1000px) {
+  .elt5 {
+    grid-area: 1/1/-1/-1;
+  }
+
+  .elt1, .elt2, .elt3, .elt4, .elt6, .elt7, .elt8, .elt9 {
+    display: none;
+  }
+
 }

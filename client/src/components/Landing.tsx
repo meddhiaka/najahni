@@ -8,26 +8,27 @@ import Link from "next/link"
 
 
 
+
 function Landing() {
     return (
-        <div className="container-custom">
+        <div className="container-custom h-[30rem] md:h-[46rem]">
             <div className="elt1 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/1.png" width={500} height={500} alt="" /></div>
             <div className="elt2 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/2.jpg" width={500} height={500} alt="" /></div>
             <div className="elt3 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/3.jpg" width={500} height={500} alt="" /></div>
             <div className="elt4 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/4.jpeg" width={500} height={500} alt="" /></div>
             <div className="elt5 border-4 border-slate-900 grid place-content-center">
-                <div className="w-full h-full">
+                <div className="bg-purple-950 md:bg-transparent w-full h-full">
                     <h1 className="scale-110 text-3xl font-bold text-center mb-4 leading-[2.6rem] mx-10">Apprentissage virtuel conçu pour la FSB, Cours et quiz sur notre plateforme en ligne.</h1>
                     <p className="text-center text-lg font-semibold text-slate-800">Là où l'éducation rencontre <span className="underline" style={{ "textDecorationThickness": "4px" }}>l'innovation!</span></p>
                     <div className="flex flex-col gap-y-3 items-center my-5">
                         <div className="h-9 w-4/6 ">
-                            <button onClick={() => signIn('google')} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FcGoogle className=' ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Google</span></span></button>
+                            <button onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/home' })} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FcGoogle className=' ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Google</span></span></button>
                         </div>
                         <div className="h-9 w-4/6">
-                            <button onClick={() => signIn('facebook')} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaFacebook className=' text-[#0866FF] ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Facebook</span></span></button>
+                            <button onClick={() => signIn('facebook', { callbackUrl: 'http://localhost:3000/home' })} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaFacebook className=' text-[#0866FF] ml-6 text-2xl inline' /><span className=""><span className="mx-2">Continuer avec Facebook</span></span></button>
                         </div>
                         <div className="h-9 w-4/6">
-                            <button onClick={() => signIn('github')} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaGithub className=' ml-6 text-2xl inline text-black' /><span className=""><span className="mx-2">Continuer avec GitHub</span></span></button>
+                            <button onClick={() => signIn('github', { callbackUrl: 'http://localhost:3000/home' })} className="hover:bg-purple-100 focus:bg-purple-100 transition rounded border-[1.5px] border-blue-950 flex h-full w-full items-center justify-center bg-white text-blue-950 font-semibold "><FaGithub className=' ml-6 text-2xl inline text-black' /><span className=""><span className="mx-2">Continuer avec GitHub</span></span></button>
                         </div>
                     </div>
                     <div className="w-full flex justify-center">
