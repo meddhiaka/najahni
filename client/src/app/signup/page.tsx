@@ -6,21 +6,24 @@ import { Label } from '@/components/ui/label'
 import axios from 'axios'
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
+
 import React, { useState } from 'react'
 import { FaFacebook, FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { useToast } from '@/components/ui/use-toast'
-
+import { ComboboxDemo } from '@/components/Role'
 
 function SignUp() {
     const [name, setName] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [open, setOpen] = React.useState(false)
+    const [value, setValue] = React.useState("")
     const session = useSession()
     const { toast } = useToast()
-
     session.status === "authenticated" ? redirect('/home') : console.log('')
+    const r = useRouter()
 
 
     async function handleSignUp(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -30,25 +33,28 @@ function SignUp() {
             email: email,
             password: password
         }
-        const response = await axios.post("http://localhost:1337/v1/api/signup", data)
+        const response = await axios.post("http://localhost:13337/v1/api/signup", data)
         console.log(response.status)
         if (response?.status == 201) {
             toast({
                 title: "Inscription réussie!",
-                description: "Bienvenue! Vous êtes inscrit(e) avec succès, Vous allez être redirigé(e) dans quelques secondes...",
-                duration: 14000
+                description: "Bienvenue! Vous êtes inscrit(e) avec succès ...",
+                duration: 5000
             })
-            setTimeout(async () => {
-                await signIn('credentials', {
-                    email,
-                    password,
-                    callbackUrl: 'http://localhost:3000/home'
-                })
-            }, 15000)
+            
+            // setTimeout(async () => {
+            //     await signIn('credentials', {
+            //         email,
+            //         password
+            //         // callbackUrl: 'http://localhost:3000/home'
+            //     })
+            //     
+            // }, 8000)
 
         } else {
             console.log(response.status)
         }
+        r.push('/login')
     }
     return (
         <div className='h-[40rem] md:overflow-hidden  w-full md:h-screen mx-auto flex flex-row'>
@@ -64,6 +70,7 @@ function SignUp() {
                     <Input value={email} onChange={e => setEmail(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='email' placeholder='nom@exemple.domaine' />
                     <Label className='my-2 text-white' htmlFor='password'>Mot de passe</Label>
                     <Input value={password} onChange={e => setPassword(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='password' placeholder='Votre mot de passe' />
+                    {/* <ComboboxDemo open={open} value={value} setOpen={setOpen} setValue={setValue}   /> */}
                     <Button onClick={(e) => handleSignUp(e)} type='submit' variant="secondary" className='mt-2'>S'inscrire</Button>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-64 h-px my-8 bg-gray-200 border-0 " />
