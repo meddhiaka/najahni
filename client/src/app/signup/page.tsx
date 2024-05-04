@@ -12,7 +12,8 @@ import React, { useState } from 'react'
 import { FaFacebook, FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { useToast } from '@/components/ui/use-toast'
-import { ComboboxDemo } from '@/components/Role'
+import { ComboboxDemo } from '@/components/RoleEx'
+import { InputOTPControlled } from '@/components/InputOTPDemo'
 
 function SignUp() {
     const [name, setName] = useState<string>('')
@@ -20,6 +21,7 @@ function SignUp() {
     const [password, setPassword] = useState<string>('')
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
+    const [OTPValue, setOTPValue] = useState<string>("")
     const session = useSession()
     const { toast } = useToast()
     session.status === "authenticated" ? redirect('/home') : console.log('')
@@ -71,6 +73,16 @@ function SignUp() {
                     <Label className='my-2 text-white' htmlFor='password'>Mot de passe</Label>
                     <Input value={password} onChange={e => setPassword(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='password' placeholder='Votre mot de passe' />
                     {/* <ComboboxDemo open={open} value={value} setOpen={setOpen} setValue={setValue}   /> */}
+                    <Label className='my-2 text-white' htmlFor='role'>Sélectionner le rôle...</Label>
+                    <ComboboxDemo open={open} value={value} setOpen={setOpen} setValue={setValue} />
+                    {
+                        value == "professeur" ? (
+                            <div className='flex mx-auto flex-col'>
+                                <Label className='mb-2 mt-4 text-white italic font-extralight' htmlFor='OTP'>Pour devenir enseignant, saisissez la clé unique!</Label>
+                                <div className='flex justify-center'><InputOTPControlled OTPValue={OTPValue} setOTPValue={setOTPValue} /></div>
+                            </div>
+                        ) : null
+                    }
                     <Button onClick={(e) => handleSignUp(e)} type='submit' variant="secondary" className='mt-2'>S'inscrire</Button>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-64 h-px my-8 bg-gray-200 border-0 " />
