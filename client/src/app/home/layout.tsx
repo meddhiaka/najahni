@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import { sendHello } from "@/lib/email";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 
 async function getSessionCustom() {
@@ -40,7 +41,7 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
         await sendHello(userData.email)
     }
 
-    
+
 
     return (
         <div>
@@ -59,7 +60,9 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
                     )
                 }
             </div>
-            {children}
+            <EdgeStoreProvider>
+                {children}
+            </EdgeStoreProvider>
         </div>
     )
 }
