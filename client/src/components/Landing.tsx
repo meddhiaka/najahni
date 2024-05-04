@@ -11,14 +11,14 @@ import Link from "next/link"
 
 function Landing() {
     return (
-        <div className="container-custom h-[30rem] md:h-[46rem]">
-            <div className="elt1 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/1.png" width={500} height={500} alt="" /></div>
-            <div className="elt2 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/2.jpg" width={500} height={500} alt="" /></div>
-            <div className="elt3 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/3.jpg" width={500} height={500} alt="" /></div>
-            <div className="elt4 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/4.jpeg" width={500} height={500} alt="" /></div>
+        <div className="container-custom h-[30rem] md:h-screen">
+            <div className="elt1 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/1.png" width={500} height={500} alt="" /></div>
+            <div className="elt2 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/2.jpg" width={500} height={500} alt="" /></div>
+            <div className="elt3 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/3.jpg" width={500} height={500} alt="" /></div>
+            <div className="elt4 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/4.jpeg" width={500} height={500} alt="" /></div>
             <div className="elt5 border-4 border-slate-900 grid place-content-center">
                 <div className="bg-purple-950 md:bg-transparent w-full h-full">
-                    <h1 className="scale-110 text-3xl font-bold text-center mb-4 leading-[2.6rem] mx-10">Apprentissage virtuel conçu pour la FSB, Cours et quiz sur notre plateforme en ligne.</h1>
+                    <h1 className="scale-110 text-3xl font-bold text-center mb-4 leading-[2.6rem] mx-10 lg:mx-20">Apprentissage virtuel conçu pour la FSB, Cours et quiz sur notre plateforme en ligne.</h1>
                     <p className="text-center text-lg font-semibold text-slate-800">Là où l'éducation rencontre <span className="underline" style={{ "textDecorationThickness": "4px" }}>l'innovation!</span></p>
                     <div className="flex flex-col gap-y-3 items-center my-5">
                         <div className="h-9 w-4/6 ">
@@ -36,10 +36,10 @@ function Landing() {
                     </div>
                 </div>
             </div>
-            <div className="elt6 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/6.jpg" width={500} height={500} alt="" /></div>
-            <div className="elt7 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/7.jpg" width={500} height={500} alt="" /></div>
-            <div className="elt8 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/8.jpg" width={500} height={500} alt="" /></div>
-            <div className="elt9 border-4 border-slate-900"><Image className="object-cover h-full w-full" src="/landing/9.jpg" width={500} height={500} alt="" /></div>
+            <div className="elt6 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/6.jpg" width={500} height={500} alt="" /></div>
+            <div className="elt7 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/7.jpg" width={500} height={500} alt="" /></div>
+            <div className="elt8 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/8.jpg" width={500} height={500} alt="" /></div>
+            <div className="elt9 border-4 border-slate-900"><Image className="object-cover blur-[1.1px] h-full w-full" src="/landing/9.jpg" width={500} height={500} alt="" /></div>
         </div>
     )
 }
