@@ -15,6 +15,9 @@ import { useToast } from '@/components/ui/use-toast'
 import { ComboboxDemo } from '@/components/RoleEx'
 import { InputOTPControlled } from '@/components/InputOTPDemo'
 
+import dotenv from "dotenv"
+dotenv.config()
+
 function SignUp() {
     const [name, setName] = useState<string>('')
     const [email, setEmail] = useState<string>('')
@@ -30,13 +33,22 @@ function SignUp() {
 
     async function handleSignUp(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
+        console.log(process.env.NEXTAUTH_URL)
+        let roleValue: string = "STUDENT"
+
+        roleValue = value == "professeur" ? "TEACHER" : "STUDENT"
+
         const data = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            role: roleValue
         }
-        const response = await axios.post("http://localhost:13337/v1/api/signup", data)
+
+        const response = await axios.post(`http://localhost:3000/api/user/signup`, data)
+
         console.log(response.status)
+
         if (response?.status == 201) {
             toast({
                 title: "Inscription réussie!",
@@ -44,19 +56,11 @@ function SignUp() {
                 duration: 5000
             })
             
-            // setTimeout(async () => {
-            //     await signIn('credentials', {
-            //         email,
-            //         password
-            //         // callbackUrl: 'http://localhost:3000/home'
-            //     })
-            //     
-            // }, 8000)
-
         } else {
             console.log(response.status)
         }
-        r.push('/login')
+        
+        r.push('/login?message=success')
     }
     return (
         <div className='h-[40rem] md:overflow-hidden  w-full md:h-screen mx-auto flex flex-row'>

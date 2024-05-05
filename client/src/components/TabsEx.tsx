@@ -20,7 +20,9 @@ import {
 
 export function TabsDemo() {
     const params = usePathname()
-    const res = params.includes('/profile/')
+    let res = params.includes('/profile/' )
+    res = params.includes('/board')
+
 
     return (
         <div>

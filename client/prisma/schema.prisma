@@ -14,17 +14,17 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String   @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?  @unique
   emailVerified Boolean?
-  role          ROLE      @default(STUDENT)
+  newAccount    Boolean? @default(true)
+  role          ROLE     @default(STUDENT)
   password      String?
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  messages      Message[]
-  reacts        React[]
+  image         String?  @default("https://www.iconsdb.com/icons/preview/purple/user-4-xxl.png")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  cours         Cour[]
 }
 
 enum ROLE {
@@ -33,30 +33,22 @@ enum ROLE {
   ADMIN
 }
 
-model Cours {
-  id    String @id @default(uuid())
-  cours Cour[]
+enum SECTION {
+  GLSI2
+  SEIOT2
+  CPI2
 }
 
 model Cour {
-  id          String    @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String?
   description String?
   icon        String?
   cover       String?
-  cours       Cours     @relation(fields: [coursId], references: [id])
-  coursId     String
-  reacts      React[]
-  chapter     Chapter[]
-}
-
-model React {
-  react  REACT   @default(NOTHING)
-  id     String  @id @default(uuid())
-  Cour   Cour?   @relation(fields: [courId], references: [id])
-  courId String?
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
+  fileUrl     String?
+  section     SECTION
+  owner       User    @relation(fields: [userId], references: [id])
+  userId      String
 }
 
 enum REACT {
@@ -65,33 +57,8 @@ enum REACT {
   DISLIKED
 }
 
-model Chapter {
-  id         Int          @id @default(autoincrement())
-  cour       Cour         @relation(fields: [courId], references: [id])
-  courId     String
-  files      String
-  discussion Discussion[]
-}
-
-// progress missing
 model Progress {
   id       String    @id @default(uuid())
   status   String?
   lastDate DateTime?
-}
-
-model Discussion {
-  id        String    @id @default(uuid())
-  Chapter   Chapter?  @relation(fields: [chapterId], references: [id])
-  chapterId Int?
-  messages  Message[]
-}
-
-model Message {
-  id           String      @id @default(uuid())
-  user         User[]
-  message      String?
-  createdAt    DateTime    @default(now())
-  Discussion   Discussion? @relation(fields: [discussionId], references: [id])
-  discussionId String?
 }
