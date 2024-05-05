@@ -10,7 +10,7 @@ export function ImagesSliderDemo() {
         "/landing/9.jpg"
     ];
     return (
-        <ImagesSlider className="h-[40rem]" images={images}>
+        <ImagesSlider className="h-screen" images={images}>
             <motion.div
                 initial={{
                     opacity: 0,
