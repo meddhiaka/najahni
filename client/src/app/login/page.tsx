@@ -1,16 +1,17 @@
 "use client"
 
 import { ImagesSliderDemo } from '@/components/Slider'
+import { AlertDemo } from '@/components/SuccessAlert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useToast } from '@/components/ui/use-toast'
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import React, { useState } from 'react'
+import { redirect, useSearchParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import { FaFacebook, FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-
 
 
 
@@ -18,11 +19,14 @@ function Login() {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const session = useSession()
+    const searchParams = useSearchParams()
+    const message = searchParams.get("message")
 
     session.status === "authenticated" ? redirect('/home') : console.log('')
 
     async function handleLogin(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
+        
         const res = await signIn('credentials', {
             email,
             password,
@@ -45,6 +49,13 @@ function Login() {
                         <h1 className='text-white text-center text-3xl  md:text-[2rem] font-bold my-1'>Connectez-vous à votre compte!</h1>
                         <p className=' text-white text-sm md:text-base text-center md:mx-20'>Veuillez saisir votre e-mail et votre mot de passe pour vous connecter, <b>Merci.</b></p>
                     </div>
+                    {
+                        message == "success" ? (
+                            <AlertDemo />
+                        ) : (
+                            null
+                        )
+                    }
                     <Label className='my-2 text-white' htmlFor='email'>E-mail</Label>
                     <Input value={email} onChange={e => setEmail(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='email' placeholder='nom@exemple.domaine' />
                     <Label className='my-2 text-white' htmlFor='password'>Mot de passe</Label>
