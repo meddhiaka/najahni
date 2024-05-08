@@ -31,7 +31,7 @@ export function CardWithForm({ name, description, id, section }: {
                 <Badge variant="outline">{section}</Badge>
             </CardContent>
             <CardFooter className="flex justify-end">
-                <Button onClick={() => r.push(`http://localhost:3000/home/courses/${id}`)}>Accéder au cours</Button>
+                <Button onClick={() => r.push(`http://localhost:3000/home/course/${id}`)}>Accéder au cours</Button>
             </CardFooter>
         </Card>
     )
