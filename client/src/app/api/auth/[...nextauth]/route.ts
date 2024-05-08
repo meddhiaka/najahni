@@ -38,20 +38,27 @@ export const authOptions: NextAuthOptions = {
             name: 'Credentials',
             credentials: {
                 email: { label: 'Email', type: 'email' },
-                password: { label: 'Password', type: 'password' },
+                password: { label: 'Password', type: 'password' }
             },
-            async authorize(credentials) {
+            async authorize(credentials, req) {
                 if (!credentials) return null
-                const { email, password } = credentials
-                const response = await axios.post(`${process.env.SERVER_ADDRESS}/v1/api/signin`, { email, password })
-                if (response.status == 200) {
-                    const user = response.data
-                    return Promise.resolve(user)
-                } else {
-                    return Promise.resolve(null)
+                try {
+                    const { email, password }: { email: string, password: string } = credentials
+                    const res = await axios.post("http://localhost:3000/api/user/signin", { email, password })
+                    if (res.status == 200) {
+                        return {
+                            email,
+                            password
+                        }
+                    } else {
+                        return null;
+                    }
+                } catch (error) {
+                    console.log(error)
                 }
             },
         }),
+
     ],
     callbacks: {
         async signIn({ user, account, profile }) {
@@ -73,10 +80,12 @@ export const authOptions: NextAuthOptions = {
     },
     secret: process.env.NEXT_AUTH_SECRET,
     pages: {
-        signIn: "/login"
+        signIn: "/login",
     },
 }
 
 const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
+
+
