@@ -1,6 +1,7 @@
 "use client"
 import {
     AlertDialog,
+    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogFooter,
@@ -16,6 +17,8 @@ import { useEdgeStore } from '@/lib/edgestore';
 import { useState } from "react"
 import axios from "axios"
 import { toast } from "./ui/use-toast"
+import { redirect, useRouter } from "next/navigation"
+
 
 export function AlertDialogDemo({ id }: {
     id: {
@@ -27,6 +30,7 @@ export function AlertDialogDemo({ id }: {
     const [section, setSection] = useState<string>('')
     const [fileUrl, setFileUrl] = useState<string>('')
     const [urls, setUrls] = useState<string[]>([])
+    const r  = useRouter()
 
     const [fileStates, setFileStates] = useState<FileState[]>([]);
     const { edgestore } = useEdgeStore();
@@ -46,7 +50,6 @@ export function AlertDialogDemo({ id }: {
 
     async function handleFormSubjectUpload() {
         if (subjectName !== "" && subjectDescription !== "" && fileUrl !== "" && section !== "") {
-            console.log(fileUrl)
             const data = {
                 name: subjectName,
                 subjectDescription: subjectDescription,
@@ -61,11 +64,17 @@ export function AlertDialogDemo({ id }: {
                     url
                 })
             }
-            toast({
-                title: "Publication du sujet réussie !",
-                description: "Votre sujet a été publié avec succès. Merci pour votre contribution !",
-                duration: 5000
-            })
+            setTimeout(async () => {
+                toast({
+                    title: "Publication du sujet réussie !",
+                    description: "Votre sujet a été publié avec succès. Merci pour votre contribution !",
+                    duration: 5000
+                }
+                )
+            }, 5000)
+            setTimeout(async () => {
+                window.location.reload()
+            }, 1000)
         } else {
             toast({
                 title: "Validation du formulaire",
@@ -122,7 +131,6 @@ export function AlertDialogDemo({ id }: {
                                             });
                                             setUrls([res.url])
                                             setFileUrl(res.url)
-                                            console.log(res);
                                         } catch (err) {
                                             updateFileProgress(addedFileState.key, 'ERROR');
                                         }
@@ -134,11 +142,11 @@ export function AlertDialogDemo({ id }: {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Annuler</AlertDialogCancel>
-                    <Button
+                    <AlertDialogAction
                         onClick={handleFormSubjectUpload}
                     >
                         Publier
-                    </Button>
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
