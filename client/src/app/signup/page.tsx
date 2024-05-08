@@ -15,7 +15,9 @@ import { useToast } from '@/components/ui/use-toast'
 import { ComboboxDemo } from '@/components/RoleEx'
 import { InputOTPControlled } from '@/components/InputOTPDemo'
 
+
 import dotenv from "dotenv"
+import { findKey, uniqueKeys } from '@/lib/uniqueKeys'
 dotenv.config()
 
 function SignUp() {
@@ -33,7 +35,7 @@ function SignUp() {
 
     async function handleSignUp(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
-        console.log(process.env.NEXTAUTH_URL)
+
         let roleValue: string = "STUDENT"
 
         roleValue = value == "professeur" ? "TEACHER" : "STUDENT"
@@ -45,9 +47,26 @@ function SignUp() {
             role: roleValue
         }
 
+        if (roleValue === "TEACHER") {
+            if (!findKey(OTPValue)) {
+                toast({
+                    title: "Clé incorrecte!",
+                    description: "Vous avez entré une clé incorrecte. Vous pouvez avoir un rôle différent.",
+                    duration: 5000
+                })
+                return new Error('incorrect key')
+            }
+        }
+        
+        if(roleValue === "TEACHER") {
+            const done : boolean = findKey(OTPValue)
+        }
+
+
+
+
         const response = await axios.post(`http://localhost:3000/api/user/signup`, data)
 
-        console.log(response.status)
 
         if (response?.status == 201) {
             toast({
@@ -55,11 +74,11 @@ function SignUp() {
                 description: "Bienvenue! Vous êtes inscrit(e) avec succès ...",
                 duration: 5000
             })
-            
+
         } else {
             console.log(response.status)
         }
-        
+
         r.push('/login?message=success')
     }
     return (
@@ -76,7 +95,6 @@ function SignUp() {
                     <Input value={email} onChange={e => setEmail(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='email' placeholder='nom@exemple.domaine' />
                     <Label className='my-2 text-white' htmlFor='password'>Mot de passe</Label>
                     <Input value={password} onChange={e => setPassword(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='password' placeholder='Votre mot de passe' />
-                    {/* <ComboboxDemo open={open} value={value} setOpen={setOpen} setValue={setValue}   /> */}
                     <Label className='my-2 text-white' htmlFor='role'>Sélectionner le rôle...</Label>
                     <ComboboxDemo open={open} value={value} setOpen={setOpen} setValue={setValue} />
                     {
