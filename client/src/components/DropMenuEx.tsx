@@ -6,7 +6,6 @@ import {
   User,
 } from "lucide-react"
 
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,12 +20,15 @@ import { BadgeDemo } from "./BadgeEx"
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { signOut } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
 
 type StringTypo = string | null | undefined
 
 export function DropdownMenuDemo({ name, email, role, id }: {
   name: StringTypo, email: StringTypo, role: StringTypo, id: StringTypo
 }) {
+  const r: AppRouterInstance = useRouter()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -58,7 +60,7 @@ export function DropdownMenuDemo({ name, email, role, id }: {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled>
+        <DropdownMenuItem disabled={role  == "STUDENT" ? true : false } onClick={() => r.push('/home/board')} className="cursor-pointer">
           <Cloud className="mr-2 h-4 w-4" />
           <span>Tableau de bord</span>
         </DropdownMenuItem>
