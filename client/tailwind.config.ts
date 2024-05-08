@@ -1,3 +1,4 @@
+const svgToDataUri = require("mini-svg-data-uri");
 import type { Config } from "tailwindcss"
 const {
   default: flattenColorPalette,
@@ -86,10 +87,22 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         scroll:
-        "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",      },
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors],
+  plugins: [require("tailwindcss-animate"), addVariablesForColors, function ({ matchUtilities, theme }: any) {
+    matchUtilities(
+      {
+        "bg-dot-thick": (value: any) => ({
+          backgroundImage: `url("${svgToDataUri(
+            `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="2.5"></circle></svg>`
+          )}")`,
+        }),
+      },
+      { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
+    );
+  },],
 } satisfies Config
 
 
