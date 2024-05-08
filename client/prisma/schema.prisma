@@ -18,6 +18,7 @@ model User {
   name          String?
   email         String?  @unique
   emailVerified Boolean?
+  description   String?
   newAccount    Boolean? @default(true)
   role          ROLE     @default(STUDENT)
   password      String?
@@ -37,6 +38,7 @@ enum SECTION {
   GLSI2
   SEIOT2
   CPI2
+  TIC
 }
 
 model Cour {

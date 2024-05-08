@@ -2,7 +2,7 @@
 CREATE TYPE "ROLE" AS ENUM ('TEACHER', 'STUDENT', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "SECTION" AS ENUM ('GLSI2', 'SEIOT2', 'CPI2');
+CREATE TYPE "SECTION" AS ENUM ('GLSI2', 'SEIOT2', 'CPI2', 'TIC');
 
 -- CreateEnum
 CREATE TYPE "REACT" AS ENUM ('NOTHING', 'LIKED', 'DISLIKED');
@@ -13,6 +13,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "email" TEXT,
     "emailVerified" BOOLEAN,
+    "description" TEXT,
     "newAccount" BOOLEAN DEFAULT true,
     "role" "ROLE" NOT NULL DEFAULT 'STUDENT',
     "password" TEXT,
