@@ -33,13 +33,6 @@ export function InputOTPControlled({
           <InputOTPSlot index={5} />
         </InputOTPGroup>
       </InputOTP>
-      <div className="text-center text-sm text-white">
-        {OTPValue === "" ? (
-          <>testing OTP feature here</>
-        ) : (
-          <>OTP: {OTPValue}</>
-        )}
-      </div>
     </div>
   )
 }
