@@ -24,8 +24,9 @@ export default function RootLayout({
         <EdgeStoreProvider>
           <NextAuthProvider>
             {children}
-            <Toaster />
           </NextAuthProvider>
+          <Toaster />
+
         </EdgeStoreProvider>
 
       </body>
