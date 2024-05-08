@@ -1,3 +1,4 @@
+import { decryptPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server"
 
@@ -6,15 +7,21 @@ export async function POST(req: Request) {
     const { email, password }: { email: string, password: string } = body
     try {
         const user = await prisma.user.findUnique({
-            where: { email: email },
+            where: {
+                email: email
+            },
             select: {
-                id: true,
-                name: true,
-                password: true,
-                email: true,
-                image: true   
+                password: true
             }
         })
+        if (user) {
+            const res = await decryptPassword(password, user.password)
+            if (res) {
+                return NextResponse.json({ user }, { status: 200 })
+            } else {
+                return NextResponse.json({ message: "ghalet" }, { status: 401 })
+            }
+        }
         return NextResponse.json(
             {
                 user
