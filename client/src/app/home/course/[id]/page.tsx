@@ -42,7 +42,7 @@ export default function SingleCoursePage() {
     }, []);
 
     return (
-        <div className="space-y-5">
+        <div className="space-y-5 mb-14">
             <div className="p-4 bg-gradient-to-r from-amber-200 to-yellow-500 flex flex-col gap-y-2">
                 <div className="top-2 mx-auto shadow-md shadow-zinc-400 w-32 h-32 md:w-40 md:h-40  bg-black  rounded-md border-[.3rem] border-violet-100 ">
                     <Image src={img} alt="" width={100} height={100} className="w-full" />
