@@ -22,7 +22,7 @@ export function CardWithForm({ name, description, id, section }: {
 }) {
     const r: AppRouterInstance = useRouter()
     return (
-        <Card className="w-[350px]">
+        <Card className="w-[350px] h-fit">
             <CardHeader>
                 <CardTitle>Cour du {name} </CardTitle>
                 <CardDescription>{description}</CardDescription>
