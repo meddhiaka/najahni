@@ -40,11 +40,11 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
     if (session && session.user && session.user.email) { e = session?.user?.email }
     if (e) {
         userData = await getProfileData(e)
+        console.log(userData)
+        console.log(session?.user)
     }
 
-    if (userData?.newAccount === true && userData.email !== null) {
-        await sendHello(userData.email)
-    }
+    await sendHello(userData.email)
 
 
 
@@ -58,7 +58,7 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
                 </div>
                 {
                     session && (
-                        <DropdownMenuDemo role={userData?.role} name={userData?.name} email={session.user?.email} id={userData?.id} />
+                        <DropdownMenuDemo role={userData?.role} name={userData?.name} email={userData?.email} id={userData?.id} />
                     )
                 }
             </div>
