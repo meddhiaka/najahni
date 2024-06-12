@@ -22,7 +22,7 @@ export default function PDFcomp({
             <div style={pdfIframeContainerStyle} className="md:max-w-4xl mx-auto">
                 <iframe
                     src={url}
-                    className="pdf-iframe h-[600px]"
+                    className="pdf-iframe h-[750px]"
                     style={pdfIframeStyle}
                     title="PDF Document"
                 />
