@@ -59,7 +59,6 @@ export function ComboboxDemo({ open, value, setOpen, setValue }: ComboBoxProps) 
                                 value={role.value}
                                 onSelect={(currentValue) => {
                                     setValue(currentValue === value ? "" : currentValue)
-                                    console.log(value)
                                     setOpen(false)
                                 }}
                             >
