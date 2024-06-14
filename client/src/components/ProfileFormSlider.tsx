@@ -16,6 +16,7 @@ import { SingleImageDropzoneUsage } from "./ImageUploadComp"
 import { useEffect, useState } from "react"
 import { useEdgeStore } from '@/lib/edgestore';
 import { prisma } from "@/lib/prisma"
+import axios from "axios"
 
 
 export function SheetDemo({
@@ -29,42 +30,17 @@ export function SheetDemo({
 
     const [newName, setNewName] = useState(name)
     const [desc, setDes] = useState(description)
-    const [file, setFile] = useState<File>()
-    const [url, setUrl] = useState('')
-    const { edgestore } = useEdgeStore();
 
     async function handleProfileForm() {
-        if (file) {
-            const res = await edgestore.publicFiles.upload({
-                file,
-                onProgressChange: (progress) => {
-                    console.log(progress);
-                },
-                options: {
-                    temporary: true
-                },
-            });
-
-            setUrl(res.url)
-
-            // last step
-            const reply = await prisma.user.update({
-                where: {
-                    email: email || null || undefined
-                },
-                data: {
-                    name: name,
-                    description: desc,
-                    image: url
-                }
-
-            })
-
-            await edgestore.publicFiles.confirmUpload({
-                url
-            })
-
+        const data = {
+            email,
+            name: newName,
+            description: desc
         }
+        const reply_profile = await axios.post("http://localhost:3000/api/user", data)
+        console.log(reply_profile)
+        window.location.reload();
+        return reply_profile
     }
 
 
@@ -93,7 +69,7 @@ export function SheetDemo({
                         </Label>
                         <Input id="username" value={desc} onChange={e => setDes(e.target.value)} className="col-span-3" />
                     </div>
-                    <SingleImageDropzoneUsage
+                    {/* <SingleImageDropzoneUsage
                         width={200}
                         height={200}
                         value={file}
@@ -102,11 +78,11 @@ export function SheetDemo({
                         }}
                         file={file}
                         setFile={setFile}
-                    />
+                    /> */}
                 </div>
                 <SheetFooter>
-                    <SheetClose asChild>
-                        <Button onClick={handleProfileForm}>Enregistrer</Button>
+                    <SheetClose asChild={false}>
+                        <Button onClick={() => handleProfileForm()}>Enregistrer</Button>
                     </SheetClose>
                 </SheetFooter>
             </SheetContent>
