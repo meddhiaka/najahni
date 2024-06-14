@@ -14,8 +14,6 @@ function CredentialsTesting() {
       setUser(user.data)
     }
 
-    console.log(user)
-
     if (session.data?.user?.email) {
       getUser()
     }

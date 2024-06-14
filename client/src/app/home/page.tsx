@@ -10,7 +10,6 @@ import React from "react";
 
 async function getCourses() {
   const data = await prisma.cour.findMany()
-  console.log(data)
   return data
 }
 

@@ -32,7 +32,6 @@ function Login() {
             password,
             callbackUrl: 'http://localhost:3000/home'
         })
-        console.log(res)
     }
 
 

@@ -40,11 +40,11 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
     if (session && session.user && session.user.email) { e = session?.user?.email }
     if (e) {
         userData = await getProfileData(e)
-        console.log(userData)
-        console.log(session?.user)
     }
 
-    await sendHello(userData.email)
+    if(userData?.newAccount == true) {
+        await sendHello(userData.email)
+    }
 
 
 

@@ -1,7 +1,5 @@
-function Loading() {
+export default function LoadingBoard() {
   return (
-    <div>board route skeleton...</div>
+      <p>loading /home/board</p>
   )
 }
-
-export default Loading
