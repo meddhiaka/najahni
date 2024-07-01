@@ -139,3 +139,12 @@
   }
 
 }
+
+
+.bg-animation-left {
+  background: linear-gradient(to right, rgb(230, 244, 255), rgba(230, 244, 255, 0.473), rgba(230, 244, 255, 0.2));
+}
+
+.bg-animation-right {
+  background: linear-gradient(to left, rgb(230, 244, 255), rgba(230, 244, 255, 0.473), rgba(230, 244, 255, 0.2));
+}
