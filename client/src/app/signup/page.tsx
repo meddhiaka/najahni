@@ -64,8 +64,9 @@ function SignUp() {
 
 
 
-
+        console.log("data: ", data)
         const response = await axios.post(`http://localhost:3000/api/user/signup`, data)
+        console.log("reponse: ", response)
 
 
         if (response?.status == 201) {
@@ -84,13 +85,13 @@ function SignUp() {
     return (
         <div className='h-[40rem] md:overflow-hidden  w-full md:h-screen mx-auto flex flex-row'>
             <div className='w-full md:w-1/2 bg-purple-950 relative'>
-                <Link href={"/login"}><Button variant="secondary" className='invisible md:visible absolute left-1 top-1 bg-transparent text-white border-[1px] border-white hover:text-purple-800'>Se Connecter</Button></Link>
+                <Link prefetch={true} href={"/login"}><Button variant="secondary" className='invisible md:visible absolute left-1 top-1 bg-transparent text-white border-[1px] border-white hover:text-purple-800'>Se Connecter</Button></Link>
                 <div className=' w-4/6 mx-auto flex flex-col justify-center h-full'>
                     <div className='my-3'>
                         <h1 className='text-white text-center text-3xl  md:text-[2rem] font-bold my-1'>Inscrivez-vous dès maintenant!</h1>
                     </div>
                     <Label className='my-2 text-white' htmlFor='name'>Name</Label>
-                    <Input value={name} onChange={e => setName(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='text' placeholder='Votre nom' />
+                    <Input maxLength={15} value={name} onChange={e => setName(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='text' placeholder='Votre nom' />
                     <Label className='my-2 text-white' htmlFor='email'>E-mail</Label>
                     <Input value={email} onChange={e => setEmail(e.target.value)} className='mb-1 focus:border-purple-600 outline-none' type='email' placeholder='nom@exemple.domaine' />
                     <Label className='my-2 text-white' htmlFor='password'>Mot de passe</Label>

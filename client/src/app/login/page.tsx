@@ -42,7 +42,7 @@ function Login() {
                 <ImagesSliderDemo />
             </div>
             <div className='w-full md:w-1/2 bg-purple-950 relative'>
-                <Link href={"/signup"}><Button variant="secondary" className='invisible md:visible absolute right-1 top-1 bg-transparent text-white border-[1px] border-white hover:text-purple-800'>S'inscrire</Button></Link>
+                <Link prefetch={true} href={"/signup"}><Button variant="secondary" className='invisible md:visible absolute right-1 top-1 bg-transparent text-white border-[1px] border-white hover:text-purple-800'>S'inscrire</Button></Link>
                 <div className=' w-4/6 mx-auto flex flex-col justify-center h-full'>
                     <div className='my-3'>
                         <h1 className='text-white text-center text-3xl  md:text-[2rem] font-bold my-1'>Connectez-vous à votre compte!</h1>

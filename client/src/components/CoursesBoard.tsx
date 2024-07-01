@@ -31,8 +31,8 @@ export async function CoursesBoard(id: { id: string | undefined; }) {
                         />
                     ))
                 ) : (
-                    <div className="max-w-5xl mx-auto">
-                        Il n'y a pas de cours ; vous devez en télécharger.
+                    <div className="max-w-5xl mx-auto text-3xl">
+                        Il n'y a pas de cours ...
                     </div>
                 )
             }
