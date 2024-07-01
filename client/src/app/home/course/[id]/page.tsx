@@ -55,7 +55,16 @@ export default function SingleCoursePage() {
             <CourDescription nomCour={nomCour} description={description} />
             <div className="max-w-[890px] mx-auto flex justify-between">
                 <Badge><span className="font-light mx-1">Section:</span>  {section}</Badge>
-                <Button className="focus:bg-black focus:text-white transition ease-in" variant="outline">Enregistrez ce cours dans mon profil <HiSave className="mx-1" size="2em"/> </Button>
+                {
+                    role == "STUDENT" ?(
+                        <Button
+                            className="focus:bg-black focus:text-white transition ease-in"
+                            variant="outline"
+                        >
+                            Enregistrez ce cours dans mon profil <HiSave className="mx-1" size="2em" />
+                        </Button>
+                    ) : ("")
+                }
             </div>
             {<PDFcomp url={courseFile} />}
         </div>
