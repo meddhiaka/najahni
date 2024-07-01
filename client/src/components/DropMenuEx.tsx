@@ -51,7 +51,7 @@ export function DropdownMenuDemo({ name, email, role, id }: {
         <DropdownMenuGroup>
           <DropdownMenuItem className="cursor-pointer">
             <User className="mr-2 h-4 w-4" />
-            <span><Link href={`/home/profile/${id}`}>Profile</Link></span>
+            <span><Link prefetch={true} href={`/home/profile/${id}`}>Profile</Link></span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="cursor-pointer">
@@ -60,14 +60,14 @@ export function DropdownMenuDemo({ name, email, role, id }: {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled={role  == "STUDENT" ? true : false } onClick={() => r.push('/home/board')} className="cursor-pointer">
+        <DropdownMenuItem disabled={role  == "STUDENT" ? true : false } className="cursor-pointer">
           <Cloud className="mr-2 h-4 w-4" />
-          <span>Tableau de bord</span>
+          <Link prefetch={true} href={'/home/board'} >Tableau de bord</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4" />
-          <span onClick={() => signOut()}>Déconnexion</span>
+          <span onClick={async () => await signOut()}>Déconnexion</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
